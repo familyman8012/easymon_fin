@@ -5,6 +5,7 @@ import { RewardedAd, TestIds, RewardedAdEventType } from '@react-native-firebase
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
+import { Base64 } from 'js-base64';
 
 // const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-5419852983818824/4053895469';
 
@@ -41,25 +42,21 @@ function HomeScreen() {
           webview.current.postMessage("hi webview");
         }
         if (type === RewardedAdEventType.EARNED_REWARD) {
-          console.log('사용자가 받는 리워드는 ', reward);
 
-          // var key = CryptoJS.enc.Utf8.parse("NEUNGSOFTKEYNUMB");// Secret key
-          // var iv = CryptoJS.enc.Utf8.parse('NEUNGSOFTEASYMON');//vector iv
-          // var mb_id_pre = CryptoJS.AES.encrypt(data, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.ZeroPadding })
-          // var mb_id = mb_id_pre.toString();
-          // var check_pre = CryptoJS.AES.encrypt('neungsoft', key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.ZeroPadding })
-          // var check = check_pre.toString();
-
-
+          var key = CryptoJS.enc.Utf8.parse("NEUNGSOFTKEYNUMB");// Secret key
+          var iv = CryptoJS.enc.Utf8.parse('NEUNGSOFTEASYMON');//vector iv
+          var mb_id = Base64.btoa(CryptoJS.AES.encrypt(data, key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.ZeroPadding }).toString())
+          var check = Base64.btoa(CryptoJS.AES.encrypt('neungsoft', key, { iv: iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.ZeroPadding }).toString())
 
           axios({
             method: 'post',
             url: "https://www.easy-mon.com/back/admob/admob.php?_=" + new Date().getTime(),
             data: {
-              mb_id: data,
+              mb_id: mb_id,
+              check: check
             }
           }).then(function (response) {
-            console.log(response.data);
+            console.log(response.data);    
           })
           .catch(function (error) {
             console.log(error);
