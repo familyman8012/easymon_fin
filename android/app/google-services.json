@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "292597490827",
+    "project_id": "easymon-9b720",
+    "storage_bucket": "easymon-9b720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292597490827:android:cee12077e7829b6ac1a08e",
+        "android_client_info": {
+          "package_name": "com.easymon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "292597490827-gev62nq11rscjcmp3rd7uf0thiet9r4b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.easymon",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "292597490827-d0ucodj5okuniepf1sv9ntulk4uv84qh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnG2R_KhLyOCbP6tyb5Qf9WH9oe_pap3w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "292597490827-d0ucodj5okuniepf1sv9ntulk4uv84qh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
