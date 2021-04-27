@@ -7,10 +7,18 @@
  */
 
 
-import React from 'react';
+
+import React, {useEffect} from 'react';
+import { Alert } from 'react-native';
 import Webview from './Webview';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+
+
+
+
+
 
 const Stack = createStackNavigator();
 const Theme = {
@@ -22,7 +30,7 @@ const Theme = {
 };
 
 
-const App: () => React$Node = () => {
+const App: () => React$Node = () => {  
   return (
     <>
       <NavigationContainer theme={Theme}>

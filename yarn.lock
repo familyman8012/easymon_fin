@@ -1097,13 +1097,18 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/admob/-/admob-11.2.0.tgz#6fd967f5fd8ccff11f3dc1e3e3c6068b11e3eb5c"
   integrity sha512-9pUDfDdVZZwZnwoOZR807mTzlKgbNECq6NwTnNIqMMJG/Id6QpBBMki3O/c2AmK6ydzM31eHP4JKNErKqC7UZA==
 
-"@react-native-firebase/app@^11.2.0":
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-11.2.0.tgz#5716bb264cf0a500fb40181bd338eb3067d36c94"
-  integrity sha512-TLrttjy6h5rhmRqnKFe67GNbYeB1VZphH5Gm+pYJzfIbMsh/m6q2Au1D4jmLnfjpqXAaTtAhetnODyT1TH/LzQ==
+"@react-native-firebase/app@^11.3.3":
+  version "11.3.3"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-11.3.3.tgz#cd6c4a9f69133ff0c4ecbb1f4322d421dd5ebcf5"
+  integrity sha512-bptZVXzI3GgPdjR2WKdpLr5zJS9TgyQcHxsO4RChykUsZYVe4PAI/AGDTd8e1w6JqMsABaVlY+nosnQv6Ye3vQ==
   dependencies:
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
+
+"@react-native-firebase/messaging@^11.3.3":
+  version "11.3.3"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/messaging/-/messaging-11.3.3.tgz#63d8969875b5d1f5c5ea08c946d7bdc9ae814f97"
+  integrity sha512-D6t9fO4AYXSfuzZcRtc6Webxp6/oO3HRbF4gQzOmYJb8XDGXyA4A6CQCDtBCO/rY8bJSkzI+CcHK0hfSuePfCA==
 
 "@react-native/assets@1.0.0":
   version "1.0.0"
@@ -5422,6 +5427,11 @@ react-native-permissions@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.0.1.tgz#7273f7d07701974ef50bf77bb052881846a3bb91"
   integrity sha512-loCoNEeBeLsrvITZmrkuCUEMFiuwhKuFvkWbC5Imco4bj2hUW7BVI29i8QyxkC53ydRfSR9OtbR3KQIyghWiNQ==
+
+react-native-push-notification@^7.2.3:
+  version "7.2.3"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-7.2.3.tgz#e5efa0d48bfa27ad0cab538ba859b5f2cd21b684"
+  integrity sha512-MWwzGXGD22vQ35roDWBQ4EJl1jS4kuuAAdxqe2C88gULgzT6rQkR9wszl5b5K+hIWqve50qg4zJoSgarr//2KA==
 
 react-native-reanimated@^2.1.0:
   version "2.1.0"
