@@ -13,12 +13,7 @@ import { Alert } from 'react-native';
 import Webview from './Webview';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
-
-
-
-
-
+import UnityAds from 'react-native-unity-ads-moon';
 
 const Stack = createStackNavigator();
 const Theme = {
@@ -30,7 +25,10 @@ const Theme = {
 };
 
 
-const App: () => React$Node = () => {  
+const App: () => React$Node = () => {   
+  React.useEffect(() => {
+    UnityAds.loadAd('4109757', 'Rewarded_Android', false);
+  }, []);
   return (
     <>
       <NavigationContainer theme={Theme}>

@@ -1,14 +1,15 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { WebView } from 'react-native-webview';
-import { StyleSheet, BackHandler, Alert, PermissionsAndroid } from 'react-native';
+import { StyleSheet,  BackHandler, Alert, PermissionsAndroid  } from 'react-native';
 import { RewardedAd, TestIds, RewardedAdEventType } from '@react-native-firebase/admob';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import CryptoJS from 'crypto-js';
 import { Base64 } from 'js-base64';
 import PushNotification from 'react-native-push-notification';
-import { InterstitialAdManager, AdSettings } from 'react-native-fbads';
+import { InterstitialAdManager, AdSettings  } from 'react-native-fbads';
 import UnityAds from 'react-native-unity-ads-moon';
+
 // const adUnitId = __DEV__ ? TestIds.REWARDED : 'ca-app-pub-5419852983818824/4053895469';
 
 
@@ -23,7 +24,7 @@ function HomeScreen() {
       buttonPositive: 'Okay'
     }
   );
-
+   
   // 처리될때 서버로 전송해주는 값 : 공통
   function sendServerApi(data) {
     webview.current.postMessage("load_hide");
@@ -37,7 +38,7 @@ function HomeScreen() {
 
   // 구글광고
   function googleAdsView(data) {
-    const rewarded = RewardedAd.createForAdRequest('ca-app-pub-5419852983818824/4053895469', {
+    const rewarded = RewardedAd.createForAdRequest(TestIds.REWARDED, {
       serverSideVerificationOptions: {
         userId: data
       },
@@ -59,11 +60,11 @@ function HomeScreen() {
           const errMsg = error.toString();
           if (errMsg.includes('[admob/no-fill] The ad request was successful, but no ad was returned due to lack of ad inventory.')) {
             //Alert.alert("알림", "다시 시도해주세요")
-            unityAdsView(data);
+            facebookAdsView(data);            
             webview.current.postMessage("다시 시도해주세요");
           } else {
             //alert("알림", "에러가 발생했습니다.")
-            unityAdsView(data);
+            facebookAdsView(data);            
             webview.current.postMessage("에러가 발생했습니다.");
           }
 
@@ -84,15 +85,14 @@ function HomeScreen() {
           url: "https://www.easy-mon.com/back/admob/admob.php?_=" + new Date().getTime(),
           data: {
             mb_id: sendServerValue[0],
-            check: sendServerValue[1],
-            type: 'GOOGLE'
+            check: sendServerValue[1]
           }
         }).then(function (response) {
           console.log(response.data);
         })
           .catch(function (error) {
             console.log(error);
-            unityAdsView(data);
+            facebookAdsView(data);            
           });
       }
     });
@@ -101,10 +101,27 @@ function HomeScreen() {
 
 
   // 페이스북광고
-  function facebookAdsView() {
-    InterstitialAdManager.showAd('283963836669435_286258179773334')
+  function facebookAdsView(data) {
+    AdSettings.addTestDevice('hash');
+    InterstitialAdManager.showAd('283963836669435_283967280002424')
       .then((didClick) => {
-        webview.current.postMessage("load_hide");
+        const sendServerValue = sendServerApi(data);
+        //console.log(sendServerValue);
+        axios({
+          method: 'post',
+          url: "https://www.easy-mon.com/back/admob/admob.php?_=" + new Date().getTime(),
+          data: {
+            mb_id: sendServerValue[0],
+            check: sendServerValue[1],
+            type: 'FACEBOOK'
+          }
+        }).then(function (response) {
+          console.log(response.data);
+        })
+          .catch(function (error) {
+            console.log(error);
+            unityAdsView(data);
+          });
       })
       .catch((error) => {
         var err = error.toString();
@@ -119,6 +136,7 @@ function HomeScreen() {
         }).then(function (response) {
           console.log(error);
           const errMsg = error.toString();
+          unityAdsView(data);
           webview.current.postMessage("에러가 발생했습니다.");
         })
           .catch(function (error) {
@@ -130,32 +148,26 @@ function HomeScreen() {
 
   // 유니티광고  
   function unityAdsView(data) {
+    UnityAds.loadAd('4109757', 'Rewarded_Android', true);
+    // 유니티 광고
     UnityAds.isLoad().then(isLoad => {
       if (isLoad) {
         UnityAds.showAd().then((result) => {
-          console.log(result);
-          if (result == 'COMPLETED') {
-            const sendServerValue = sendServerApi(data);
-            //console.log(sendServerValue);
-            axios({
-              method: 'post',
-              url: "https://www.easy-mon.com/back/admob/admob.php?_=" + new Date().getTime(),
-              data: {
-                mb_id: sendServerValue[0],
-                check: sendServerValue[1],
-                type: 'UNITY'
-              }
-            }).then(function (response) {
-              console.log(response.data);
-            })
-              .catch(function (error) {
-                console.log(error);
-                googleAdsView(data);
-              });
-          }
-          else if (result == 'ERROR' || result == 'SKIPPED' || result == 'NOT_LOADED') {
-            webview.current.postMessage("load_hide");
-          }
+          const sendServerValue = sendServerApi(data);
+          axios({
+            method: 'post',
+            url: "https://www.easy-mon.com/back/admob/admob.php?_=" + new Date().getTime(),
+            data: {
+              mb_id: sendServerValue[0],
+              check: sendServerValue[1],
+              type: 'UNITY'
+            }
+          }).then(function (response) {
+            console.log(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         }).catch(error => {
           var err = error.toString();
           axios({
@@ -182,7 +194,9 @@ function HomeScreen() {
 
 
   const getAds = ({ nativeEvent: { data } }) => {
-    //console.log(data);
+    
+    console.log(data);
+   
     if (data.includes('login')) {
       const data_mbid = JSON.parse(data);
       const mb_id = data_mbid.mb_id;
@@ -252,31 +266,37 @@ function HomeScreen() {
         requestPermissions: true,
       });
     }
-    else if (data.includes('facebookad')) {
-      console.log(data.includes('facebookad'), '페이스북이 맞습니다.');
-      facebookAdsView()
-    }
     else {
       try {
-        axios({
-          method: 'post',
-          url: "https://www.easy-mon.com/back/admob/advertisementSearche.php?_=" + new Date().getTime(),
-          data: {
-            mb_id: data,
+        // 구글광고
+        //googleAdsView(data)
+
+        //페이스북 광고
+        //console.log('페북광고데이터', data);
+        //unityAdsView(data);
+
+        //유니티 광고
+        //unityAdsView(data);
+
+        UnityAds.loadAd('4109757', 'Rewarded_Android', false);
+        //유니티 광고
+        UnityAds.isLoad().then(isLoad => {
+          if (isLoad) {
+            UnityAds.showAd().then((result) => {
+              console.log(result);
+            }).catch(error => {
+              console.log(error);
+            });
           }
-        }).then(function (response) {
-          if (response.data == 'GOOGLE') {googleAdsView(data)}
-          else if (response.data == 'UNITY') { unityAdsView(data) }
-          else if (response.data == 'exceed') { webview.current.postMessage("load_hide"); Alert.alert('알하루 광고 시청 가능 횟수를 초과하셨습니다.')}
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+        // 유니티 광고 끝
+             
+        
       } catch (error) {
         console.log('catch error', error);
       }
     }
-  }
+  }  
   useFocusEffect(
     React.useCallback(() => {
       const onBackPress = () => {
@@ -294,7 +314,7 @@ function HomeScreen() {
   );
   return (
     <>
-
+     
       <WebView
         ref={webview}
         source={{ uri: "https://easy-mon.com/" }}
@@ -315,10 +335,10 @@ function HomeScreen() {
         onNavigationStateChange={(navState) => {
           SetCanGoBack(navState.canGoBack);
         }}
-      />
+      />      
     </>
-  );
-
+  );  
+  
 }
 
 const styles = StyleSheet.create({
