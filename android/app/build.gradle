@@ -131,7 +131,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.easymon"
+        applicationId "com.govotEnterSystem"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 7

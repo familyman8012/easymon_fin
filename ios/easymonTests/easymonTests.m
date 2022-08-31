@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface easymonTests : XCTestCase
+@interface govotEnterSystemTests : XCTestCase
 
 @end
 
-@implementation easymonTests
+@implementation govotEnterSystemTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {

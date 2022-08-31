@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "easymon.app"
-               BlueprintName = "easymon"
-               ReferencedContainer = "container:easymon.xcodeproj">
+               BuildableName = "govotEnterSystem.app"
+               BlueprintName = "govotEnterSystem"
+               ReferencedContainer = "container:govotEnterSystem.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "easymonTests.xctest"
-               BlueprintName = "easymonTests"
-               ReferencedContainer = "container:easymon.xcodeproj">
+               BuildableName = "govotEnterSystemTests.xctest"
+               BlueprintName = "govotEnterSystemTests"
+               ReferencedContainer = "container:govotEnterSystem.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "easymon.app"
-            BlueprintName = "easymon"
-            ReferencedContainer = "container:easymon.xcodeproj">
+            BuildableName = "govotEnterSystem.app"
+            BlueprintName = "govotEnterSystem"
+            ReferencedContainer = "container:govotEnterSystem.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "easymon.app"
-            BlueprintName = "easymon"
-            ReferencedContainer = "container:easymon.xcodeproj">
+            BuildableName = "govotEnterSystem.app"
+            BlueprintName = "govotEnterSystem"
+            ReferencedContainer = "container:govotEnterSystem.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

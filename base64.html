@@ -1,70 +1,76 @@
-<!DOCTYPE HTML>
-<HTML>
-
-<HEAD>
-    <TITLE>CryptoJS base64 Example</TITLE>
-    <meta charset="utf-8">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CryptoJS base64 Example</title>
+    <meta charset="utf-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script>
-        function callEnDecodeFunc() {
+      function callEnDecodeFunc() {
+        var secretKey = 'NEUNGSOFTKEYNUMB';
+        var iv = 'NEUNGSOFTgovotEnterSystem';
+        var data = 'familyman80@naver.com';
+        var checkString = 'neungsoft';
 
-            var secretKey = 'NEUNGSOFTKEYNUMB';
-            var iv = "NEUNGSOFTEASYMON";
-            var data = "familyman80@naver.com"
-            var checkString = "neungsoft";
+        // encrypt
+        var mb_id = CryptoJS.enc.Base64.parse(
+          CryptoJS.AES.encrypt(JSON.stringify(data), secretKey, {
+            iv: iv,
+          }).toString(),
+        );
+        var check = CryptoJS.enc.Base64.parse(
+          CryptoJS.AES.encrypt(JSON.stringify(checkString), secretKey, {
+            iv: iv,
+          }).toString(),
+        );
 
-            // encrypt
-            var mb_id = CryptoJS.enc.Base64.parse(CryptoJS.AES.encrypt(JSON.stringify(data), secretKey, { iv: iv
-            }).toString());
-            var check = CryptoJS.enc.Base64.parse(CryptoJS.AES.encrypt(JSON.stringify(checkString), secretKey, { iv:
-            iv }).toString())
+        console.log('mb_id:', mb_id);
+        console.log('check:', check);
 
+        // encrypt
+        // var encrypted = CryptoJS.AES.encrypt( JSON.stringify(data), secretKey, { iv: iv }).toString();
+        // console.log('encrypt:', encrypted);
 
-             console.log('mb_id:', mb_id);
-             console.log('check:', check);
+        // decrypt
+        var bytes = CryptoJS.AES.decrypt(mb_id, secretKey, {iv: iv});
+        var decrypted = JSON.stringify(bytes.toString(CryptoJS.enc.Base64));
+        console.log('decrypted:', bytes);
+        // var encoded = encoding();
+        // var decoded = decoding(encoded);
 
-            // encrypt
-            // var encrypted = CryptoJS.AES.encrypt( JSON.stringify(data), secretKey, { iv: iv }).toString();
-            // console.log('encrypt:', encrypted);
+        // document.getElementById('encoded').innerHTML = encoded;
+        // document.getElementById('decoded').innerHTML = decoded;
+      }
 
-            // decrypt
-            var bytes = CryptoJS.AES.decrypt(mb_id, secretKey, { iv: iv });
-            var decrypted = JSON.stringify(bytes.toString(CryptoJS.enc.Base64));
-            console.log('decrypted:', bytes);
-            // var encoded = encoding();
-            // var decoded = decoding(encoded);
+      function encoding() {
+        //encrypt
+        var t = CryptoJS.AES.encrypt('Message', 'Secret');
+        //var wordArray = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(t));
+        return t;
+      }
 
-            // document.getElementById('encoded').innerHTML = encoded;
-            // document.getElementById('decoded').innerHTML = decoded;
-        }
+      function decoding(encoded) {
+        //decrypt
+        var t1 = CryptoJS.AES.decrypt(encoded, 'Secret');
+        //var e1 = t1.toString(CryptoJS.enc.Base64);
 
-        function encoding() {
-            //encrypt
-            var t = CryptoJS.AES.encrypt("Message", "Secret")
-            //var wordArray = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(t));
-            return t;
-        }
-
-        function decoding(encoded) {
-            //decrypt
-            var t1 = CryptoJS.AES.decrypt(encoded, "Secret")
-            //var e1 = t1.toString(CryptoJS.enc.Base64);
-            
-            //var parsedWordArray = CryptoJS.enc.Base64.parse(t1).toString(CryptoJS.enc.Utf8);
-            return t1;
-        }
+        //var parsedWordArray = CryptoJS.enc.Base64.parse(t1).toString(CryptoJS.enc.Utf8);
+        return t1;
+      }
     </script>
-</HEAD>
+  </head>
 
-<BODY>
-
-    <p> Base64 Encode(JS) - Decode(Java) 예제 </p>
-    ---------------------------------------------<br>
-    plainText : <input type="text" id="plainText" value="황철연_금수영"><br>
-    Base64 Encoding Str : <span id=encoded></span><br>
-    Base64 Decoding Str : <span id=decoded></span><br>
-    ---------------------------------------------<br>
-    <input type="button" id="enDecoding" value="enDecoding" onClick="callEnDecodeFunc()"><br><br>
-</BODY>
-
-</HTML>
+  <body>
+    <p>Base64 Encode(JS) - Decode(Java) 예제</p>
+    ---------------------------------------------<br />
+    plainText : <input type="text" id="plainText" value="황철연_금수영" /><br />
+    Base64 Encoding Str : <span id="encoded"></span><br />
+    Base64 Decoding Str : <span id="decoded"></span><br />
+    ---------------------------------------------<br />
+    <input
+      type="button"
+      id="enDecoding"
+      value="enDecoding"
+      onClick="callEnDecodeFunc()"
+    /><br /><br />
+  </body>
+</html>
